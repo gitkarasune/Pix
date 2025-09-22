@@ -17,10 +17,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
+export const metadata: Metadata = { 
   title: "Pix",
   description:
-    "Discover, download, and organize stunning images with AI assistance."
+    "Discover, download, and organize stunning images with AI assistance"
 }
 
 export default function RootLayout({

@@ -1,8 +1,6 @@
 ### Pix
  A modern, AI-enhanced image discovery platform built with Next.js, featuring millions of high-quality images from Unsplash with intelligent search capabilities powered by DeepSeek-R1 AI.
 
-<br />
-
 ### Installation
    - ```git clone https://github.com/yourusername/pix.git```
    - ``` cd pix```
@@ -14,17 +12,11 @@
   **Open your browser**
    - Navigate to [http://localhost:3000](http://localhost:3000)
 
-   <br />
-
 ### Contributing
 We love contributions! Here's how you can help make Pix even better:
 
-<br />
-
 ### 📄 License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-<br />
 
 ### 🙏 Acknowledgments
 - **Unsplash**: For providing access to millions of beautiful, high-quality images
@@ -33,7 +25,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Vercel**: For excellent hosting and deployment platform
 - **shadcn/ui**: For beautiful, accessible UI components
 - **All Contributors**: Thank you for making this project better!
-
-<br />
 
 **Built with ❤️**
