@@ -75,10 +75,10 @@ export default function SearchBar({ onSearch, onCategorySelect, loading = false,
               type="submit"
               size="sm"
               disabled={loading || !query.trim()}
-              className="bg-black text-white dark:bg-white dark:text-black py-7 accent-sidebar-border"
+              className={`bg-black text-white dark:bg-white dark:text-black py-7 ${loading ? "px-7" : ""} accent-sidebar-border`}
             >
               {loading ? (
-                <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                <div className="h-4 w-4 animate-spin rounded-full border-2 dark:border-black border-white border-t-transparent" />
               ) : (
                 // <Sparkles className="h-4 w-4" />
                 <span>Search</span>
@@ -92,10 +92,10 @@ export default function SearchBar({ onSearch, onCategorySelect, loading = false,
           <div className="absolute top-full left-0 right-0 mt-2 bg-background/95 backdrop-blur-sm border rounded-lg shadow-lg z-50 p-4 h-40">
             <div className="text-sm text-muted-foreground mb-2 flex items-center gap-2">
               <Sparkles className="h-4 w-4" />
-              AI Suggestions
+              AI Suggestions for you
             </div>
             <div className="flex flex-wrap gap-2">
-              {!suggestions.map((suggestion, index) => (
+              {suggestions.map((suggestion, index) => (
                 <Badge
                   key={index}
                   variant="secondary"

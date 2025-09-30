@@ -6,7 +6,7 @@ export default function NotFound() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-background px-4">
       <div className="text-center space-y-6">
-        <Logo className="mx-auto scale-150" />
+        <Logo />
         <div className="space-y-2">
           <h1 className="text-4xl font-bold">404</h1>
           <h2 className="text-2xl font-semibold">Page Not Found</h2>

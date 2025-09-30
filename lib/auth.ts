@@ -15,8 +15,3 @@ export async function getAuthUser() {
   const { userId } = await auth()
   return { userId }
 }
-
-// export async function getAuthUser() {
-//   const { userId, user } = await auth()
-//   return { userId, user }
-// }

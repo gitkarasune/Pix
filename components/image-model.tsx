@@ -1,13 +1,13 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Card, CardContent } from "@/components/ui/card"
-import { Download, Heart, ExternalLink, Info, Palette, Tag, User, Calendar, Eye } from "lucide-react"
+import { Download, Heart, Info, Palette, Tag, User, Calendar, Eye, Copy } from "lucide-react"
 import type { UnsplashImage, AIImageAnalysis } from "@/lib/types"
 import { deepSeekAPI } from "@/lib/deepseek"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -22,10 +22,19 @@ interface ImageModalProps {
   isFavorite: boolean
 }
 
+
 export default function ImageModal({ image, isOpen, onClose, onDownload, onFavorite, isFavorite }: ImageModalProps) {
   const [aiAnalysis, setAiAnalysis] = useState<AIImageAnalysis | null>(null)
   const [analysisLoading, setAnalysisLoading] = useState(false)
 
+  // Reset analysis
+  useEffect(() => {
+    if (isOpen && image) {
+      setAiAnalysis(null) 
+      setAnalysisLoading(false)
+    }
+  }, [isOpen, image])
+  
   const handleAnalyzeImage = async () => {
     if (!image || analysisLoading) return
 
@@ -43,9 +52,16 @@ export default function ImageModal({ image, isOpen, onClose, onDownload, onFavor
 
   if (!image) return null
 
+  const handleCopyUrl = () => {
+    if (image?.urls.full) {
+      navigator.clipboard.writeText(image.urls.full)
+      toast.success("Image URL copied to clipboard!")
+    }
+  }
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-[100rem] max-h-[90vh] overflow-y-auto">
+      <DialogContent className="w-full max-w-3xl lg:max-w-7xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Info className="h-5 w-5" />
@@ -80,8 +96,9 @@ export default function ImageModal({ image, isOpen, onClose, onDownload, onFavor
               >
                 <Heart className={`h-4 w-4 ${isFavorite ? "fill-white" : ""}`} />
               </Button>
-              <Button variant="outline" onClick={() => window.open(image.links.html, "_blank")}>
-                <ExternalLink className="h-4 w-4" />
+              <Button variant="outline" onClick={handleCopyUrl}>
+                <Copy className="h-4 w-4 mr-2" />
+                Copy URL
               </Button>
             </div>
           </div>

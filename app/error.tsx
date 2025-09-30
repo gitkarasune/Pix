@@ -23,7 +23,7 @@ export default function Error({
       <Card className="w-full max-w-md">
         <CardContent className="pt-6">
           <div className="text-center space-y-6">
-            <Logo className="mx-auto scale-125" />
+            <Logo />
 
             <div className="space-y-2">
               <div className="flex items-center justify-center">

@@ -16,22 +16,22 @@ export default function DashboardHeader() {
             <Logo />
           </Link>
 
-          <nav className="hidden md:flex items-center gap-4">
+          <nav className="flex items-center gap-3 md:gap-4">
             <Button variant="ghost" size="sm" asChild>
               <Link href="/dashboard">
-                <Home className="h-4 w-4 mr-2" />
+                <Home className="h-4 w-4 mr-2 sm:hidden md:flex lg:flex xl:flex 2xl:flex" />
                 Gallery
               </Link>
             </Button>
             <Button variant="ghost" size="sm" asChild>
               <Link href="/favorites">
-                <Heart className="h-4 w-4 mr-2" />
+                <Heart className="h-4 w-4 mr-2 sm:hidden md:flex lg:flex xl:flex 2xl:flex" />
                 Favorites
               </Link>
             </Button>
             <Button variant="ghost" size="sm" asChild>
               <Link href="/profile">
-                <User className="h-4 w-4 mr-2" />
+                <User className="h-4 w-4 mr-2 sm:hidden md:flex lg:flex xl:flex 2xl:flex" />
                 Profile
               </Link>
             </Button>

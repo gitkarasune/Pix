@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Logo from '../logo'
 
 const links = [
-   {
+  {
     title: "Features",
     href: "#features",
   },
@@ -13,15 +13,11 @@ const links = [
   },
   {
     title: "About",
-    href: "#about",
+    href: "/about",
   },
-   {
-        title: 'Pricing',
-        href: '/pricing',
-    },
   {
-    title: "Privacy",
-    href: "/privacy",
+    title: 'Pricing',
+    href: '/pricing',
   },
 ]
 
@@ -30,7 +26,7 @@ export default function FooterSection() {
     <footer className="border-t bg-muted/30 py-16 md:py-24">
       <div className="mx-auto max-w-5xl px-6">
         <div className="flex flex-col items-center space-y-8">
-          <Logo className="scale-110" />
+          <Logo />
 
           <div className="flex flex-wrap justify-center gap-8 text-sm">
             {links.map((link, index) => (

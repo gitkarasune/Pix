@@ -52,7 +52,8 @@ export default function FavoritesPage() {
   }
 
   const handleImageClick = (image: UnsplashImage) => {
-    window.open(image.links.html, "_blank")
+    // window.open(image.links.html, "_blank") // to avoid image redirect to main unsplash site
+    console.warn(image.links.html)
   }
 
   const handleDownload = async (image: UnsplashImage) => {
