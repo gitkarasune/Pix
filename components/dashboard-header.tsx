@@ -5,7 +5,13 @@ import { ThemeToggle } from "./theme-toggle"
 import Logo from "./logo"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Heart, User, Home } from "lucide-react"
+import { Heart, User, Home, Menu } from "lucide-react"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 export default function DashboardHeader() {
   return (
@@ -16,26 +22,34 @@ export default function DashboardHeader() {
             <Logo />
           </Link>
 
-          <nav className="flex items-center gap-3 md:gap-4">
-            <Button variant="ghost" size="sm" asChild>
-              <Link href="/dashboard">
-                <Home className="h-4 w-4 mr-2 sm:hidden md:flex lg:flex xl:flex 2xl:flex" />
-                Gallery
-              </Link>
-            </Button>
-            <Button variant="ghost" size="sm" asChild>
-              <Link href="/favorites">
-                <Heart className="h-4 w-4 mr-2 sm:hidden md:flex lg:flex xl:flex 2xl:flex" />
-                Favorites
-              </Link>
-            </Button>
-            <Button variant="ghost" size="sm" asChild>
-              <Link href="/profile">
-                <User className="h-4 w-4 mr-2 sm:hidden md:flex lg:flex xl:flex 2xl:flex" />
-                Profile
-              </Link>
-            </Button>
-          </nav>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="sm" className="flex items-center gap-2">
+                <Menu className="h-4 w-4" />
+                Menu
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="w-40">
+              <DropdownMenuItem asChild>
+                <Link href="/dashboard" className="flex items-center gap-2">
+                  <Home className="h-4 w-4" />
+                  Gallery
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/favorites" className="flex items-center gap-2">
+                  <Heart className="h-4 w-4" />
+                  Favorites
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/profile" className="flex items-center gap-2">
+                  <User className="h-4 w-4" />
+                  Profile
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
 
         <div className="flex items-center gap-4">

@@ -8,11 +8,20 @@ import { unsplashAPI } from "@/lib/unsplash"
 import { Button } from "@/components/ui/button"
 import { Heart, Trash2 } from "lucide-react"
 import { toast } from "sonner"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+  DialogDescription,
+} from "@/components/ui/dialog"
 
 export default function FavoritesPage() {
   const [favoriteImages, setFavoriteImages] = useState<UnsplashImage[]>([])
   const [loading, setLoading] = useState(true)
   const [favorites, setFavorites] = useState<string[]>([])
+  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false)
 
   useEffect(() => {
     loadFavorites()
@@ -90,6 +99,7 @@ export default function FavoritesPage() {
     localStorage.removeItem("pixelvault-favorites")
 
     toast.success("All favorite images have been removed.")
+    setConfirmDialogOpen(false)
   }
 
   return (
@@ -111,14 +121,39 @@ export default function FavoritesPage() {
           </div>
 
           {favoriteImages.length > 0 && (
-            <Button
-              variant="outline"
-              onClick={clearAllFavorites}
-              className="text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950/20 bg-transparent"
-            >
-              <Trash2 className="h-4 w-4 mr-2" />
-              Clear All
-            </Button>
+            <>
+              <Button
+                variant="outline"
+                onClick={() => setConfirmDialogOpen(true)}
+                className="text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950/20 bg-transparent"
+              >
+                <Trash2 className="h-4 w-4 mr-2" />
+                Clear All
+              </Button>
+
+              {/* Confirmation Dialog */}
+              <Dialog open={confirmDialogOpen} onOpenChange={setConfirmDialogOpen}>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Clear All Favorites?</DialogTitle>
+                    <DialogDescription>
+                      This will remove all saved favorite images. This action cannot be undone.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <DialogFooter className="flex justify-end gap-2">
+                    <Button variant="outline" onClick={() => setConfirmDialogOpen(false)}>
+                      Cancel
+                    </Button>
+                    <Button
+                      variant="destructive"
+                      onClick={clearAllFavorites}
+                    >
+                      Yes, Clear All
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+            </>
           )}
         </div>
 
