@@ -46,8 +46,7 @@ export default function ShareDialog({ isOpen, onClose, url }: ShareDialogProps) 
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-lg relative overflow-hidden z-[10000]">
-        {/* Absolute background blobs */}
+      <DialogContent className="relative w-full max-w-lg rounded-2xl shadow-xl overflow-hidden z-[10000]">
         <div className="absolute pointer-events-none -z-0 top-20 left-20 w-72 h-72 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 dark:from-cyan-500/20 dark:to-blue-500/20 rounded-full blur-3xl" />
         <div className="absolute pointer-events-none -z-0 bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-purple-500/10 to-pink-500/10 dark:from-purple-500/20 dark:to-pink-500/20 rounded-full blur-3xl" />
         <div className="absolute pointer-events-none -z-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-indigo-500/5 to-cyan-500/5 dark:from-indigo-500/10 dark:to-cyan-500/10 rounded-full blur-3xl" />
@@ -58,7 +57,7 @@ export default function ShareDialog({ isOpen, onClose, url }: ShareDialogProps) 
           </DialogTitle>
         </DialogHeader>
 
-        <div className="relative z-10 grid grid-cols-2 sm:grid-cols-3 gap-4 mt-4">
+        <div className="relative z-50 grid grid-cols-2 sm:grid-cols-3 gap-4 mt-4">
           {socialPlatforms.map((platform) => {
             const Icon = platform.icon
             return (
