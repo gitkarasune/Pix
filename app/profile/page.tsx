@@ -53,7 +53,7 @@ export default function ProfilePage() {
       <DashboardHeader />
 
       <main className="container mx-auto px-1 py-8">
-        <div className="max-w-6xl mx-auto space-y-10">
+        <div className="max-w-7xl mx-auto space-y-10">
           {/* Profile Header */}
           <ProfileHeader />
 

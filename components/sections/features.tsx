@@ -6,8 +6,8 @@ export default function Features() {
   return (
     <section id="features" className="bg-muted/30 py-16 md:py-32">
       <div className="@container mx-auto max-w-6xl px-6">
-        <div className="text-center mb-16 relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-purple-600/20 blur-3xl dark:blur-3xl pointer-events-none -z-0" />
+        <div className="text-center mb-16">
+          {/* <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-purple-600/20 blur-3xl dark:blur-3xl pointer-events-none -z-0" /> */}
           <h2 className="text-balance text-4xl font-bold lg:text-5xl mb-4">
             Everything you need for
             <span className="">

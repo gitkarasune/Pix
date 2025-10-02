@@ -11,7 +11,7 @@ import { Download, Heart, Info, Palette, Tag, User, Calendar, Eye } from "lucide
 import type { UnsplashImage, AIImageAnalysis } from "@/lib/types"
 import { deepSeekAPI } from "@/lib/deepseek"
 import { Skeleton } from "@/components/ui/skeleton"
-import ShareDialog from "@/components/share-dialog"
+import ShareDrawer from "@/components/share-dialog"
 import { Share2 } from "lucide-react"
 import { toast } from "sonner"
 import SmartSearch from "@/components/smart-search"
@@ -108,7 +108,7 @@ const handleDownloadWithConfetti = (img: UnsplashImage) => {
             {/* Action Buttons */}
             <div className="flex gap-2">
               <Button onClick={() => {
-                onDownload(image) 
+                // onDownload(image) 
                 handleDownloadWithConfetti(image)}
                 } className="flex-1">
                 <Download className="h-4 w-4 mr-2" />
@@ -281,7 +281,7 @@ const handleDownloadWithConfetti = (img: UnsplashImage) => {
       </DialogContent>
     </Dialog>
 
-    <ShareDialog isOpen={shareOpen} onClose={() => setShareOpen(false)} url={image.urls.full} />
+    <ShareDrawer isOpen={shareOpen} onClose={() => setShareOpen(false)} url={image.urls.full} />
     </>
   )
 }

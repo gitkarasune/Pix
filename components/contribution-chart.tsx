@@ -8,6 +8,7 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
+  TooltipProps,
   ResponsiveContainer,
 } from "recharts"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -26,12 +27,12 @@ interface ContributionData {
 
 interface CustomTooltipProps {
   active?: boolean
-  payload?: any[]
+  payload?: TooltipProps<number, string>["payload"]
 }
 
 const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
   if (active && payload && payload.length > 0) {
-    const d = payload[0].payload
+    const d = payload[0].payload as ContributionData
     return (
       <div className="bg-white dark:bg-gray-800 p-3 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg space-y-1">
         <p className="font-medium text-gray-900 dark:text-white">{d.date}</p>
@@ -108,7 +109,7 @@ export function ContributionChart() {
   const chartData = useMemo(() => data, [data])
 
   return (
-    <Card>
+    <Card className="w-full px-0">
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-2">
@@ -173,115 +174,4 @@ export function ContributionChart() {
     </Card>
   )
 }
-
-
-
-
-
-// "use client"
-
-// import { useEffect, useState } from "react"
-// import { ResponsiveContainer, Tooltip, Cell, XAxis, YAxis, BarChart, Bar } from "recharts"
-// import { useUserStorage } from "@/lib/use-user-storage"
-
-// // Shape of our chart data
-// interface ContributionData {
-//   date: string
-//   count: number
-// }
-
-// export function ContributionChart() {
-//   const [data, setData] = useState<ContributionData[]>([])
-//   const { getItem } = useUserStorage();
-
-//   useEffect(() => {
-//     // Load activity from localStorage
-//     const downloads = getItem("downloads")
-//     const favorites = getItem("favorites")
-//     const collections = getItem("collections")
-
-//     const downloadIds: string[] = downloads ? JSON.parse(downloads) : []
-//     const favoriteIds: string[] = favorites ? JSON.parse(favorites) : []
-//     const collectionData: { id: string; createdAt: string }[] = collections
-//       ? JSON.parse(collections)
-//       : []
-
-//     // Merge all activities into a date → count map
-//     const contributions: Record<string, number> = {}
-
-//     // For downloads & favorites, simulate contributions by id
-//     downloadIds.forEach(() => {
-//       const today = new Date().toISOString().slice(0, 10)
-//       contributions[today] = (contributions[today] || 0) + 1
-//     })
-
-//     favoriteIds.forEach(() => {
-//       const today = new Date().toISOString().slice(0, 10)
-//       contributions[today] = (contributions[today] || 0) + 1
-//     })
-
-//     // For collections, use stored createdAt
-//     collectionData.forEach((c) => {
-//       const date = c.createdAt ? new Date(c.createdAt).toISOString().slice(0, 10) : new Date().toISOString().slice(0, 10)
-//       contributions[date] = (contributions[date] || 0) + 1
-//     })
-
-//     // Fill last 30 days with 0 if no activity
-//     const today = new Date()
-//     const last30Days: ContributionData[] = []
-//     for (let i = 29; i >= 0; i--) {
-//       const d = new Date(today)
-//       d.setDate(today.getDate() - i)
-//       const key = d.toISOString().slice(0, 10)
-//       last30Days.push({
-//         date: key,
-//         count: contributions[key] || 0,
-//       })
-//     }
-
-//     setData(last30Days)
-//   }, [getItem])
-
-//   return (
-//     <div className="w-full h-64">
-//       <ResponsiveContainer width="100%" height="100%">
-//         <BarChart data={data}>
-//           <XAxis
-//             dataKey="date"
-//             tick={{ fontSize: 10 }}
-//             tickLine={false}
-//             axisLine={false}
-//             interval={6} // show every ~7th day
-//           />
-//           <YAxis hide />
-//           <Tooltip
-//             labelFormatter={(label) => new Date(label).toLocaleDateString()}
-//             formatter={(value) => [`${value} actions`, "Contributions"]}
-//             cursor={{ fill: "rgba(0,0,0,0.05)" }}
-//           />
-//           <Bar dataKey="count" radius={[4, 4, 0, 0]}>
-//             {data.map((entry, index) => (
-//               <Cell
-//                 key={`cell-${index}`}
-//                 fill={
-//                   entry.count > 3
-//                     ? "#3b82f6" // blue-500
-//                     : entry.count > 0
-//                     ? "#93c5fd" // blue-300
-//                     : "#e5e7eb" // gray-200
-//                 }
-//               />
-//             ))}
-//           </Bar>
-//         </BarChart>
-//       </ResponsiveContainer>
-//       <p className="text-xs text-muted-foreground mt-2 mb-1 text-center">
-//         Last 30 days of activity (downloads, favorites, collections)
-//       </p>
-//     </div>
-//   )
-// }
-
-
-
 
