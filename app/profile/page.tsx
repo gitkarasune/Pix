@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Activity, Award, TrendingUp } from "lucide-react"
 import { useUserStorage } from "@/lib/use-user-storage"
+import ProfileLoading from "./loading"
 
 export default function ProfilePage() {
   const { user } = useUser()
@@ -36,15 +37,9 @@ export default function ProfilePage() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-background">
-        <DashboardHeader />
-        <div className="container mx-auto px-4 py-8 text-center">
-          <p>Loading profile...</p>
-        </div>
-      </div>
+      <ProfileLoading />
     )
   }
-
    const handleClearData = () => {
     removeItem("downloads")
     removeItem("favorites")

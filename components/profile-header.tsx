@@ -5,6 +5,8 @@ import { useUser } from "@clerk/nextjs"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Calendar, Download, Heart, Folder } from "lucide-react"
+import { useUserStorage } from "@/lib/use-user-storage"
+import ProfileLoading from "@/app/profile/loading"
 
 interface UserStats {
   downloads: number
@@ -15,6 +17,7 @@ interface UserStats {
 
 export default function ProfileHeader() {
   const { user } = useUser()
+  const { getItem } = useUserStorage()
   const [stats, setStats] = useState<UserStats>({
     downloads: 0,
     favorites: 0,
@@ -24,9 +27,9 @@ export default function ProfileHeader() {
 
   useEffect(() => {
     // Load stats from localStorage
-    const downloads = localStorage.getItem("pixelvault-downloads")
-    const favorites = localStorage.getItem("pixelvault-favorites")
-    const collections = localStorage.getItem("pixelvault-collections")
+    const downloads = getItem("downloads")
+    const favorites = getItem("favorites")
+    const collections = getItem("collections")
 
     setStats({
       downloads: downloads ? JSON.parse(downloads).length : 0,
@@ -34,13 +37,11 @@ export default function ProfileHeader() {
       collections: collections ? JSON.parse(collections).length : 0,
       joinedDate: user?.createdAt ? new Date(user.createdAt) : new Date(),
     })
-  }, [user])
+  }, [user, getItem])
 
   if (!user) {
     return (
-      <div className="w-full p-6 text-center border rounded-lg bg-muted/30">
-        <p className="text-muted-foreground">Loading profile...</p>
-      </div>
+      <ProfileLoading />
     )
   }
 
@@ -59,7 +60,7 @@ export default function ProfileHeader() {
         {/* Profile Info */}
         <div className="flex-1 text-center md:text-left">
           <h1 className="text-3xl font-bold">{user.fullName || `${user.firstName} ${user.lastName}`}</h1>
-          <div className="flex flex-col md:flex-row items-center gap-4 text-muted-foreground mt-2">
+          <div className="flex flex-col items-center gap-3 text-muted-foreground mt-2">
             {user.primaryEmailAddress?.emailAddress && (
               <span className="text-sm">{user.primaryEmailAddress.emailAddress}</span>
             )}

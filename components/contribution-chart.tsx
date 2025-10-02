@@ -1,23 +1,142 @@
+"use client"
+
+import { useEffect, useState } from "react"
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  ResponsiveContainer,
+  Tooltip,
+  CartesianGrid,
+} from "recharts"
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart"
+import { useUserStorage } from "@/lib/use-user-storage"
+
+interface ContributionData {
+  date: string
+  count: number
+}
+
+export function ContributionChart() {
+  const [data, setData] = useState<ContributionData[]>([])
+  const { getItem } = useUserStorage()
+
+  useEffect(() => {
+    try {
+      const downloads = getItem("downloads")
+      const favorites = getItem("favorites")
+      const collections = getItem("collections")
+
+      const downloadIds: string[] = downloads ? JSON.parse(downloads) : []
+      const favoriteIds: string[] = favorites ? JSON.parse(favorites) : []
+      const collectionData: { id: string; createdAt: string }[] = collections
+        ? JSON.parse(collections)
+        : []
+
+      const contributions: Record<string, number> = {}
+
+      // Today’s date key
+      const todayKey = new Date().toISOString().slice(0, 10)
+
+      // Count downloads & favorites as today's activity
+      contributions[todayKey] = (contributions[todayKey] || 0) + downloadIds.length
+      contributions[todayKey] = (contributions[todayKey] || 0) + favoriteIds.length
+
+      // Count collections by createdAt date
+      collectionData.forEach((c) => {
+        const date = c.createdAt
+          ? new Date(c.createdAt).toISOString().slice(0, 10)
+          : todayKey
+        contributions[date] = (contributions[date] || 0) + 1
+      })
+
+      // Fill last 30 days
+      const today = new Date()
+      const last30Days: ContributionData[] = []
+      for (let i = 29; i >= 0; i--) {
+        const d = new Date(today)
+        d.setDate(today.getDate() - i)
+        const key = d.toISOString().slice(0, 10)
+        last30Days.push({
+          date: key,
+          count: contributions[key] || 0,
+        })
+      }
+
+      setData(last30Days)
+    } catch (err) {
+      console.error("Error preparing contribution chart:", err)
+      setData([]) // fallback
+    }
+  }, [getItem])
+
+  return (
+    <div className="w-full h-72">
+      <ChartContainer
+        config={{
+          contributions: {
+            label: "Contributions",
+            color: "hsl(var(--chart-1))",
+          },
+        }}
+        className="w-full h-full"
+      >
+        <ResponsiveContainer>
+          <LineChart data={data}>
+            <CartesianGrid
+              strokeDasharray="3 3"
+              stroke="hsl(var(--border))"
+              vertical={false}
+            />
+            <XAxis
+              dataKey="date"
+              tick={{ fontSize: 10 }}
+              tickLine={false}
+              axisLine={false}
+              interval={6} // ~weekly
+            />
+            <YAxis hide />
+            <Tooltip
+              content={
+                <ChartTooltip
+                  cursor={false}
+                  content={<ChartTooltipContent hideLabel />}
+                />
+              }
+            />
+            <Line
+              type="monotone"
+              dataKey="count"
+              stroke="hsl(var(--chart-1))"
+              strokeWidth={2}
+              dot={{ r: 3 }}
+              activeDot={{ r: 5 }}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </ChartContainer>
+      <p className="text-xs text-muted-foreground mt-2 mb-1 text-center">
+        Last 30 days of downloads, favorites & collections
+      </p>
+    </div>
+  )
+}
+
+
+
 
 // "use client"
 
 // import { useEffect, useState } from "react"
-// import {
-//   LineChart,
-//   Line,
-//   XAxis,
-//   YAxis,
-//   ResponsiveContainer,
-//   Tooltip,
-//   CartesianGrid,
-// } from "recharts"
-// import {
-//   ChartContainer,
-//   ChartTooltip,
-//   ChartTooltipContent,
-// } from "@/components/ui/chart"
+// import { ResponsiveContainer, Tooltip, Cell, XAxis, YAxis, BarChart, Bar } from "recharts"
 // import { useUserStorage } from "@/lib/use-user-storage"
 
+// // Shape of our chart data
 // interface ContributionData {
 //   date: string
 //   count: number
@@ -25,9 +144,10 @@
 
 // export function ContributionChart() {
 //   const [data, setData] = useState<ContributionData[]>([])
-//  const { getItem } = useUserStorage();
+//   const { getItem } = useUserStorage();
 
 //   useEffect(() => {
+//     // Load activity from localStorage
 //     const downloads = getItem("downloads")
 //     const favorites = getItem("favorites")
 //     const collections = getItem("collections")
@@ -38,22 +158,27 @@
 //       ? JSON.parse(collections)
 //       : []
 
+//     // Merge all activities into a date → count map
 //     const contributions: Record<string, number> = {}
 
-//     // Record downloads + favorites for "today"
-//     const todayKey = new Date().toISOString().slice(0, 10)
-//     contributions[todayKey] = (contributions[todayKey] || 0) + downloadIds.length
-//     contributions[todayKey] = (contributions[todayKey] || 0) + favoriteIds.length
+//     // For downloads & favorites, simulate contributions by id
+//     downloadIds.forEach(() => {
+//       const today = new Date().toISOString().slice(0, 10)
+//       contributions[today] = (contributions[today] || 0) + 1
+//     })
 
-//     // Record collections by createdAt date
+//     favoriteIds.forEach(() => {
+//       const today = new Date().toISOString().slice(0, 10)
+//       contributions[today] = (contributions[today] || 0) + 1
+//     })
+
+//     // For collections, use stored createdAt
 //     collectionData.forEach((c) => {
-//       const date = c.createdAt
-//         ? new Date(c.createdAt).toISOString().slice(0, 10)
-//         : todayKey
+//       const date = c.createdAt ? new Date(c.createdAt).toISOString().slice(0, 10) : new Date().toISOString().slice(0, 10)
 //       contributions[date] = (contributions[date] || 0) + 1
 //     })
 
-//     // Fill last 30 days
+//     // Fill last 30 days with 0 if no activity
 //     const today = new Date()
 //     const last30Days: ContributionData[] = []
 //     for (let i = 29; i >= 0; i--) {
@@ -70,162 +195,44 @@
 //   }, [getItem])
 
 //   return (
-//     <div className="w-full h-72">
-//       <ChartContainer
-//         config={{
-//           contributions: {
-//             label: "Contributions",
-//             color: "hsl(var(--chart-1))",
-//           },
-//         }}
-//         className="w-full h-full"
-//       >
-//         <ResponsiveContainer>
-//           <LineChart data={data}>
-//             <CartesianGrid
-//               strokeDasharray="3 3"
-//               stroke="hsl(var(--border))"
-//               vertical={false}
-//             />
-//             <XAxis
-//               dataKey="date"
-//               tick={{ fontSize: 10 }}
-//               tickLine={false}
-//               axisLine={false}
-//               interval={6} // show ~weekly labels
-//             />
-//             <YAxis hide />
-//             <Tooltip
-//               content={
-//                 <ChartTooltip
-//                   cursor={false}
-//                   content={<ChartTooltipContent hideLabel />}
-//                 />
-//               }
-//             />
-//             <Line
-//               type="monotone"
-//               dataKey="count"
-//               stroke="hsl(var(--chart-1))"
-//               strokeWidth={2}
-//               dot={{ r: 3 }}
-//               activeDot={{ r: 5 }}
-//             />
-//           </LineChart>
-//         </ResponsiveContainer>
-//       </ChartContainer>
+//     <div className="w-full h-64">
+//       <ResponsiveContainer width="100%" height="100%">
+//         <BarChart data={data}>
+//           <XAxis
+//             dataKey="date"
+//             tick={{ fontSize: 10 }}
+//             tickLine={false}
+//             axisLine={false}
+//             interval={6} // show every ~7th day
+//           />
+//           <YAxis hide />
+//           <Tooltip
+//             labelFormatter={(label) => new Date(label).toLocaleDateString()}
+//             formatter={(value) => [`${value} actions`, "Contributions"]}
+//             cursor={{ fill: "rgba(0,0,0,0.05)" }}
+//           />
+//           <Bar dataKey="count" radius={[4, 4, 0, 0]}>
+//             {data.map((entry, index) => (
+//               <Cell
+//                 key={`cell-${index}`}
+//                 fill={
+//                   entry.count > 3
+//                     ? "#3b82f6" // blue-500
+//                     : entry.count > 0
+//                     ? "#93c5fd" // blue-300
+//                     : "#e5e7eb" // gray-200
+//                 }
+//               />
+//             ))}
+//           </Bar>
+//         </BarChart>
+//       </ResponsiveContainer>
 //       <p className="text-xs text-muted-foreground mt-2 mb-1 text-center">
-//         Last 30 days of downloads, favorites & collections
+//         Last 30 days of activity (downloads, favorites, collections)
 //       </p>
 //     </div>
 //   )
 // }
-
-
-
-"use client"
-
-import { useEffect, useState } from "react"
-import { ResponsiveContainer, Tooltip, Cell, XAxis, YAxis, BarChart, Bar } from "recharts"
-import { useUserStorage } from "@/lib/use-user-storage"
-
-// Shape of our chart data
-interface ContributionData {
-  date: string
-  count: number
-}
-
-export function ContributionChart() {
-  const [data, setData] = useState<ContributionData[]>([])
-  const { getItem } = useUserStorage();
-
-  useEffect(() => {
-    // Load activity from localStorage
-    const downloads = getItem("downloads")
-    const favorites = getItem("favorites")
-    const collections = getItem("collections")
-
-    const downloadIds: string[] = downloads ? JSON.parse(downloads) : []
-    const favoriteIds: string[] = favorites ? JSON.parse(favorites) : []
-    const collectionData: { id: string; createdAt: string }[] = collections
-      ? JSON.parse(collections)
-      : []
-
-    // Merge all activities into a date → count map
-    const contributions: Record<string, number> = {}
-
-    // For downloads & favorites, simulate contributions by id
-    downloadIds.forEach(() => {
-      const today = new Date().toISOString().slice(0, 10)
-      contributions[today] = (contributions[today] || 0) + 1
-    })
-
-    favoriteIds.forEach(() => {
-      const today = new Date().toISOString().slice(0, 10)
-      contributions[today] = (contributions[today] || 0) + 1
-    })
-
-    // For collections, use stored createdAt
-    collectionData.forEach((c) => {
-      const date = c.createdAt ? new Date(c.createdAt).toISOString().slice(0, 10) : new Date().toISOString().slice(0, 10)
-      contributions[date] = (contributions[date] || 0) + 1
-    })
-
-    // Fill last 30 days with 0 if no activity
-    const today = new Date()
-    const last30Days: ContributionData[] = []
-    for (let i = 29; i >= 0; i--) {
-      const d = new Date(today)
-      d.setDate(today.getDate() - i)
-      const key = d.toISOString().slice(0, 10)
-      last30Days.push({
-        date: key,
-        count: contributions[key] || 0,
-      })
-    }
-
-    setData(last30Days)
-  }, [getItem])
-
-  return (
-    <div className="w-full h-64">
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={data}>
-          <XAxis
-            dataKey="date"
-            tick={{ fontSize: 10 }}
-            tickLine={false}
-            axisLine={false}
-            interval={6} // show every ~7th day
-          />
-          <YAxis hide />
-          <Tooltip
-            labelFormatter={(label) => new Date(label).toLocaleDateString()}
-            formatter={(value) => [`${value} actions`, "Contributions"]}
-            cursor={{ fill: "rgba(0,0,0,0.05)" }}
-          />
-          <Bar dataKey="count" radius={[4, 4, 0, 0]}>
-            {data.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={
-                  entry.count > 3
-                    ? "#3b82f6" // blue-500
-                    : entry.count > 0
-                    ? "#93c5fd" // blue-300
-                    : "#e5e7eb" // gray-200
-                }
-              />
-            ))}
-          </Bar>
-        </BarChart>
-      </ResponsiveContainer>
-      <p className="text-xs text-muted-foreground mt-2 mb-1 text-center">
-        Last 30 days of activity (downloads, favorites, collections)
-      </p>
-    </div>
-  )
-}
 
 
 
