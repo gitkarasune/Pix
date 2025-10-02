@@ -15,12 +15,24 @@ import {
 
 export default function DashboardHeader() {
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background/80 backdrop-blur-md border-dashed dark:bg-zinc-950/50 lg:dark:bg-transparent">
+    <header className="sticky top-0 z-40 w-full border-b bg-background/80 backdrop-blur-md border-dashed dark:bg-zinc-950/50 lg:dark:bg-transparent"> 
       <div className="container flex h-16 items-center justify-between px-4">
-        <div className="flex items-center gap-6">
+        <div className="flex items-center ">
           <Link href="/dashboard" className="flex items-center">
             <Logo />
           </Link>
+        </div>
+
+        <div className="flex items-center gap-4">
+          <ThemeToggle />
+
+          <UserButton
+            appearance={{
+              elements: {
+                avatarBox: "h-8 w-8",
+              },
+            }}
+          />
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -50,17 +62,7 @@ export default function DashboardHeader() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-        </div>
 
-        <div className="flex items-center gap-4">
-          <ThemeToggle />
-          <UserButton
-            appearance={{
-              elements: {
-                avatarBox: "h-8 w-8",
-              },
-            }}
-          />
         </div>
       </div>
     </header>

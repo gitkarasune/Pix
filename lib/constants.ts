@@ -18,12 +18,9 @@ export const IMAGE_CATEGORIES = [
   "nature",
   "architecture",
   "technology",
-  "people",
   "animals",
   "food",
   "travel",
   "business",
-  "fashion",
   "art",
-  "Laptops"
 ] as const

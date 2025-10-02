@@ -7,34 +7,46 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Card, CardContent } from "@/components/ui/card"
-import { Download, Heart, Info, Palette, Tag, User, Calendar, Eye, Copy } from "lucide-react"
+import { Download, Heart, Info, Palette, Tag, User, Calendar, Eye } from "lucide-react"
 import type { UnsplashImage, AIImageAnalysis } from "@/lib/types"
 import { deepSeekAPI } from "@/lib/deepseek"
 import { Skeleton } from "@/components/ui/skeleton"
+import ShareDialog from "@/components/share-dialog"
+import { Share2 } from "lucide-react"
 import { toast } from "sonner"
+import SmartSearch from "@/components/smart-search"
 
 interface ImageModalProps {
   image: UnsplashImage | null
+  imagesPool: UnsplashImage[]
   isOpen: boolean
   onClose: () => void
   onDownload: (image: UnsplashImage) => void
   onFavorite: (image: UnsplashImage) => void
   isFavorite: boolean
+  onOpenImage?: (image: UnsplashImage) => void
 }
 
 
-export default function ImageModal({ image, isOpen, onClose, onDownload, onFavorite, isFavorite }: ImageModalProps) {
+export default function ImageModal({
+  image, imagesPool = [], isOpen, onClose, onDownload, onFavorite, isFavorite, onOpenImage,
+}: ImageModalProps) {
   const [aiAnalysis, setAiAnalysis] = useState<AIImageAnalysis | null>(null)
   const [analysisLoading, setAnalysisLoading] = useState(false)
+  const [shareOpen, setShareOpen] = useState(false)
 
   // Reset analysis
   useEffect(() => {
     if (isOpen && image) {
-      setAiAnalysis(null) 
+      setAiAnalysis(null)
+      setAnalysisLoading(false)
+    }
+    if (!isOpen) {
+      setAiAnalysis(null)
       setAnalysisLoading(false)
     }
   }, [isOpen, image])
-  
+
   const handleAnalyzeImage = async () => {
     if (!image || analysisLoading) return
 
@@ -52,20 +64,13 @@ export default function ImageModal({ image, isOpen, onClose, onDownload, onFavor
 
   if (!image) return null
 
-  const handleCopyUrl = () => {
-    if (image?.urls.full) {
-      navigator.clipboard.writeText(image.urls.full)
-      toast.success("Image URL copied to clipboard!")
-    }
-  }
-
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="w-full max-w-3xl lg:max-w-7xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <Info className="h-5 w-5" />
+          <DialogTitle className="flex justify-between items-center">
             Image Details
+            <Info className="h-5 w-5" />
           </DialogTitle>
         </DialogHeader>
 
@@ -96,10 +101,25 @@ export default function ImageModal({ image, isOpen, onClose, onDownload, onFavor
               >
                 <Heart className={`h-4 w-4 ${isFavorite ? "fill-white" : ""}`} />
               </Button>
-              <Button variant="outline" onClick={handleCopyUrl}>
-                <Copy className="h-4 w-4 mr-2" />
-                Copy URL
+              <Button variant="outline" onClick={() => setShareOpen(true)}>
+                <Share2 className="h-4 w-4 mr-2" />
+                Share
               </Button>
+            </div>
+
+            <ShareDialog isOpen={shareOpen} onClose={() => setShareOpen(false)} url={image.urls.full} />
+
+            <div>
+              <h4 className="text-sm font-medium mb-2">Find similar images</h4>
+              <SmartSearch
+                images={imagesPool}
+                placeholder="Type to find similar images from current gallery..."
+                onSelect={(img) => {
+                  // open selected image in the same modal
+                  onOpenImage ? onOpenImage(img) : window.scrollTo({ top: 0, behavior: "smooth" })
+                }}
+                maxResults={8}
+              />
             </div>
           </div>
 

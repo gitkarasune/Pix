@@ -62,7 +62,7 @@ export default function SearchBar({ onSearch, onCategorySelect, loading = false,
             placeholder="Search for amazing images... (e.g., 'sunset mountains', 'modern architecture')"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="pl-12 pr-24 h-16 text-lg bg-background/60 backdrop-blur-sm border-1 focus:border-primary/50 transition-colors relative"
+            className="pl-12 pr-24 h-14 text-lg bg-background/60 backdrop-blur-sm border-1 focus:border-primary/50 transition-colors relative"
             disabled={loading}
           />
           <div className="absolute right-1 top-1/2 transform -translate-y-1/2 flex items-center gap-2">
@@ -75,7 +75,7 @@ export default function SearchBar({ onSearch, onCategorySelect, loading = false,
               type="submit"
               size="sm"
               disabled={loading || !query.trim()}
-              className={`bg-black text-white dark:bg-white dark:text-black py-7 ${loading ? "px-7" : ""} accent-sidebar-border`}
+              className={`bg-[#000] text-[#fff] dark:bg-[#fff] dark:text-[#000] py-6 ${loading ? "px-7" : ""} accent-sidebar-border border-[#000] dark:border-[#fff]`}
             >
               {loading ? (
                 <div className="h-4 w-4 animate-spin rounded-full border-2 dark:border-black border-white border-t-transparent" />

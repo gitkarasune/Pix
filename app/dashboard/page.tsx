@@ -165,7 +165,7 @@ export default function DashboardPage() {
     <div className="min-h-screen bg-background">
       <DashboardHeader />
 
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-8 relative overflow-x-hidden max-w-full">
         {/* Welcome Section */}
         <div className="text-center mb-8 relative">
 
@@ -269,6 +269,11 @@ export default function DashboardPage() {
           onClose={() => setIsModalOpen(false)}
           onDownload={handleDownload}
           onFavorite={handleFavorite}
+          imagesPool={images}
+          onOpenImage={(img) => {
+            setSelectedImage(img)
+            setIsModalOpen(true)
+          }}
           isFavorite={selectedImage ? favorites.includes(selectedImage.id) : false}
         />
       </main>
