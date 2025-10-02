@@ -9,9 +9,11 @@ import { ContributionChart } from "@/components/contribution-chart"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Activity, Award, TrendingUp } from "lucide-react"
+import { useUserStorage } from "@/lib/use-user-storage"
 
 export default function ProfilePage() {
   const { user } = useUser()
+  const { getItem, removeItem } = useUserStorage()
   const [stats, setStats] = useState({
     downloads: 0,
     favorites: 0,
@@ -20,9 +22,9 @@ export default function ProfilePage() {
   })
 
   useEffect(() => {
-    const downloads = localStorage.getItem("pixelvault-downloads")
-    const favorites = localStorage.getItem("pixelvault-favorites")
-    const collections = localStorage.getItem("pixelvault-collections")
+    const downloads = getItem("downloads")
+    const favorites = getItem("favorites")
+    const collections = getItem("collections")
 
     setStats({
       downloads: downloads ? JSON.parse(downloads).length : 0,
@@ -30,7 +32,7 @@ export default function ProfilePage() {
       collections: collections ? JSON.parse(collections).length : 0,
       joinedDate: user?.createdAt ? new Date(user.createdAt) : new Date(),
     })
-  }, [user])
+  }, [user, getItem])
 
   if (!user) {
     return (
@@ -41,6 +43,14 @@ export default function ProfilePage() {
         </div>
       </div>
     )
+  }
+
+   const handleClearData = () => {
+    removeItem("downloads")
+    removeItem("favorites")
+    removeItem("collections")
+    removeItem("searches")
+    window.location.reload()
   }
 
   return (
@@ -125,10 +135,7 @@ export default function ProfilePage() {
                 </Button>
                 <Button
                   variant="outline"
-                  onClick={() => {
-                    localStorage.clear()
-                    window.location.reload()
-                  }}
+                  onClick={() => handleClearData()}
                 >
                   Clear Data
                 </Button>

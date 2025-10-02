@@ -16,6 +16,7 @@
 //   ChartTooltip,
 //   ChartTooltipContent,
 // } from "@/components/ui/chart"
+// import { useUserStorage } from "@/lib/use-user-storage"
 
 // interface ContributionData {
 //   date: string
@@ -24,11 +25,12 @@
 
 // export function ContributionChart() {
 //   const [data, setData] = useState<ContributionData[]>([])
+//  const { getItem } = useUserStorage();
 
 //   useEffect(() => {
-//     const downloads = localStorage.getItem("pixelvault-downloads")
-//     const favorites = localStorage.getItem("pixelvault-favorites")
-//     const collections = localStorage.getItem("pixelvault-collections")
+//     const downloads = getItem("downloads")
+//     const favorites = getItem("favorites")
+//     const collections = getItem("collections")
 
 //     const downloadIds: string[] = downloads ? JSON.parse(downloads) : []
 //     const favoriteIds: string[] = favorites ? JSON.parse(favorites) : []
@@ -65,7 +67,7 @@
 //     }
 
 //     setData(last30Days)
-//   }, [])
+//   }, [getItem])
 
 //   return (
 //     <div className="w-full h-72">
@@ -125,6 +127,7 @@
 
 import { useEffect, useState } from "react"
 import { ResponsiveContainer, Tooltip, Cell, XAxis, YAxis, BarChart, Bar } from "recharts"
+import { useUserStorage } from "@/lib/use-user-storage"
 
 // Shape of our chart data
 interface ContributionData {
@@ -134,12 +137,13 @@ interface ContributionData {
 
 export function ContributionChart() {
   const [data, setData] = useState<ContributionData[]>([])
+  const { getItem } = useUserStorage();
 
   useEffect(() => {
     // Load activity from localStorage
-    const downloads = localStorage.getItem("pixelvault-downloads")
-    const favorites = localStorage.getItem("pixelvault-favorites")
-    const collections = localStorage.getItem("pixelvault-collections")
+    const downloads = getItem("downloads")
+    const favorites = getItem("favorites")
+    const collections = getItem("collections")
 
     const downloadIds: string[] = downloads ? JSON.parse(downloads) : []
     const favoriteIds: string[] = favorites ? JSON.parse(favorites) : []
@@ -181,7 +185,7 @@ export function ContributionChart() {
     }
 
     setData(last30Days)
-  }, [])
+  }, [getItem])
 
   return (
     <div className="w-full h-64">

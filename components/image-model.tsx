@@ -16,6 +16,7 @@ import { Share2 } from "lucide-react"
 import { toast } from "sonner"
 import SmartSearch from "@/components/smart-search"
 import Confetti from "react-confetti"
+import { useConfetti } from "@/lib/use-confetti"
 
 interface ImageModalProps {
   image: UnsplashImage | null
@@ -35,7 +36,7 @@ export default function ImageModal({
   const [aiAnalysis, setAiAnalysis] = useState<AIImageAnalysis | null>(null)
   const [analysisLoading, setAnalysisLoading] = useState(false)
   const [shareOpen, setShareOpen] = useState(false)
-  const [showConfetti, setShowConfetti] = useState(false)
+  const { active, trigger } = useConfetti(8000)
 
   // Reset analysis
   useEffect(() => {
@@ -66,8 +67,7 @@ export default function ImageModal({
 
 const handleDownloadWithConfetti = (img: UnsplashImage) => {
     onDownload(img)
-    setShowConfetti(true)
-    setTimeout(() => setShowConfetti(false), 6000) // stop after 6s
+    trigger()
   }
 
   if (!image) return null
@@ -76,7 +76,7 @@ const handleDownloadWithConfetti = (img: UnsplashImage) => {
     <>
 
     {/* Confetti overlay */}
-      {showConfetti && (
+      {active && (
         <div className="fixed inset-0 pointer-events-none z-[9999]">
           <Confetti width={window.innerWidth} height={window.innerHeight} recycle={false} numberOfPieces={500} />
         </div>

@@ -12,6 +12,7 @@ import { toast } from "sonner"
 import type { UnsplashImage } from "@/lib/types"
 import Image from "next/image"
 import { unsplashAPI } from "@/lib/unsplash"
+import { useUserStorage } from "@/lib/use-user-storage"
 
 interface Collection {
   id: string
@@ -39,6 +40,7 @@ export default function Collections({ images = [], onAddToCollection }: Collecti
   const [newCollectionName, setNewCollectionName] = useState("")
   const [newCollectionDescription, setNewCollectionDescription] = useState("")
   const [viewCollection, setViewCollection] = useState<Collection | null>(null)
+  const { getItem, setItem } = useUserStorage()
 
   // For create dialog search & selection
   const [createSearchQuery, setCreateSearchQuery] = useState("")
@@ -58,7 +60,11 @@ export default function Collections({ images = [], onAddToCollection }: Collecti
 
   // Helper to find image by id from prop images or from unsplash (fallback)
   const getImageById = (id: string): UnsplashImage | undefined => {
-    return images.find((img) => img.id === id)
+    const local = images.find((img) => img.id === id)
+    if (local) return local
+
+    //fallback fetch
+    return undefined
   }
 
   // Persist collections to localStorage
@@ -70,14 +76,14 @@ export default function Collections({ images = [], onAddToCollection }: Collecti
       images: c.images,
       createdAt: c.createdAt.toISOString(),
     }))
-    localStorage.setItem("pixelvault-collections", JSON.stringify(stored))
+    setItem("collections", stored)
     setCollections(newCollections)
   }
 
   // Load collections from localStorage (keeps forever unless user clears)
   const loadCollections = () => {
     try {
-      const savedCollections = localStorage.getItem("pixelvault-collections")
+      const savedCollections = getItem("collections")
       if (!savedCollections) {
         setCollections([])
         return

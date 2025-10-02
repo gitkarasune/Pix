@@ -17,6 +17,7 @@ import { deepSeekAPI } from "@/lib/deepseek"
 import { Button } from "@/components/ui/button"
 import { RefreshCw, Grid, TrendingUp, Folder } from "lucide-react"
 import { toast } from "sonner"
+import { useUserStorage } from "@/lib/use-user-storage"
 
 export default function DashboardPage() {
   const { user } = useUser()
@@ -30,6 +31,7 @@ export default function DashboardPage() {
   const [selectedImage, setSelectedImage] = useState<UnsplashImage | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [activeTab, setActiveTab] = useState("gallery")
+  const { getItem, setItem } = useUserStorage();
 
   // Load initial random images
   useEffect(() => {
@@ -38,11 +40,11 @@ export default function DashboardPage() {
 
   // Load favorites from localStorage
   useEffect(() => {
-    const savedFavorites = localStorage.getItem("pixelvault-favorites")
+    const savedFavorites = getItem("favorites")
     if (savedFavorites) {
       setFavorites(JSON.parse(savedFavorites))
     }
-  }, [])
+  }, [getItem])
 
   const loadRandomImages = async () => {
     try {
@@ -73,9 +75,10 @@ export default function DashboardPage() {
       setSuggestions(aiSuggestions)
 
       // Save search to history
-      const searches = JSON.parse(localStorage.getItem("pixelvault-searches") || "[]")
+      const savedSearches = getItem("searches")
+      const searches = savedSearches ? JSON.parse(savedSearches) : []
       const updatedSearches = [query, ...searches.filter((s: string) => s !== query)].slice(0, 10)
-      localStorage.setItem("pixelvault-searches", JSON.stringify(updatedSearches))
+      setItem("searches", updatedSearches)
     } catch (error) {
       console.error("Error searching images:", error)
       toast.error("Failed to search images. Please try again.")
@@ -110,15 +113,16 @@ export default function DashboardPage() {
       const url = window.URL.createObjectURL(blob)
       const link = document.createElement("a")
       link.href = url
-      link.download = `pixelvault-${image.id}.jpg`
+      link.download = `pix-${image.id}.jpg`
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)
       window.URL.revokeObjectURL(url)
 
-      const downloads = JSON.parse(localStorage.getItem("pixelvault-downloads") || "[]")
+      const savedDownloads = getItem("downloads")
+     const downloads = savedDownloads ? JSON.parse(savedDownloads) : []
       const updatedDownloads = [image.id, ...downloads.filter((id: string) => id !== image.id)]
-      localStorage.setItem("pixelvault-downloads", JSON.stringify(updatedDownloads))
+      setItem("downloads", updatedDownloads)
 
       toast.success("Your image is being downloaded.")
     } catch (error) {
@@ -133,7 +137,7 @@ export default function DashboardPage() {
       : [...favorites, image.id]
 
     setFavorites(newFavorites)
-    localStorage.setItem("pixelvault-favorites", JSON.stringify(newFavorites))
+    setItem("favorites", newFavorites)
     toast.success(`${favorites.includes(image.id) ? 'Image removed from your favorites.' : 'Image added to your favorites.'}`)
   }
 
@@ -200,7 +204,7 @@ export default function DashboardPage() {
               <TrendingUp className="h-4 w-4" />
               Trending
             </TabsTrigger>
-            <TabsTrigger value="collections" className="flex items-center gap-">
+            <TabsTrigger value="collections" className="flex items-center gap-2">
               <Folder className="h-4 w-4" />
               Collections
             </TabsTrigger>

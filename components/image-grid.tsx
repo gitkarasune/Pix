@@ -9,6 +9,8 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { Badge } from "@/components/ui/badge"
 import type { UnsplashImage } from "@/lib/types"
 import { cn } from "@/lib/utils"
+import Confetti from "react-confetti"
+import { useConfetti } from "@/lib/use-confetti"
 
 interface ImageGridProps {
   images: UnsplashImage[]
@@ -28,6 +30,7 @@ export default function ImageGrid({
   favorites = [],
 }: ImageGridProps) {
   const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set())
+  const { active, trigger } = useConfetti(8000)
 
   const handleImageLoad = (imageId: string) => {
     setLoadedImages((prev) => new Set(prev).add(imageId))
@@ -37,7 +40,21 @@ export default function ImageGrid({
     return <ImageGridSkeleton />
   }
 
+  const handleDownloadWithConfetti = (img: UnsplashImage) => {
+      onDownload?.(img)
+      trigger()
+    }
+
   return (
+    <>
+
+    {/* Confetti overlay */}
+          {active && (
+            <div className="fixed inset-0 pointer-events-none z-[9999]">
+              <Confetti width={window.innerWidth} height={window.innerHeight} recycle={false} numberOfPieces={500} />
+            </div>
+          )}
+
     <div className="masonry-grid">
       {images.map((image) => (
         <div key={image.id} className="masonry-item">
@@ -87,7 +104,8 @@ export default function ImageGrid({
                     className="h-8 w-8 p-0 bg-white/90 hover:bg-white"
                     onClick={(e) => {
                       e.stopPropagation()
-                      onDownload?.(image)
+                      // onDownload?.(image)
+                      handleDownloadWithConfetti(image)
                     }}
                   >
                     <Download className="h-4 w-4 text-gray-600" />
@@ -155,6 +173,8 @@ export default function ImageGrid({
         </div>
       ))}
     </div>
+
+    </>
   )
 }
 

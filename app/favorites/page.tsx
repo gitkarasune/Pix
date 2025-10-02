@@ -16,21 +16,24 @@ import {
   DialogFooter,
   DialogDescription,
 } from "@/components/ui/dialog"
+import { useUserStorage } from "@/lib/use-user-storage"
 
 export default function FavoritesPage() {
   const [favoriteImages, setFavoriteImages] = useState<UnsplashImage[]>([])
   const [loading, setLoading] = useState(true)
   const [favorites, setFavorites] = useState<string[]>([])
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false)
+  const { getItem, setItem, removeItem }  = useUserStorage();
 
   useEffect(() => {
     loadFavorites()
+
   }, [])
 
   const loadFavorites = async () => {
     try {
       setLoading(true)
-      const savedFavorites = localStorage.getItem("pixelvault-favorites")
+      const savedFavorites = getItem("favorites")
       const favoriteIds = savedFavorites ? JSON.parse(savedFavorites) : []
       setFavorites(favoriteIds)
 
@@ -88,7 +91,7 @@ export default function FavoritesPage() {
     const newFavorites = favorites.filter((id) => id !== image.id)
     setFavorites(newFavorites)
     setFavoriteImages((prev) => prev.filter((img) => img.id !== image.id))
-    localStorage.setItem("pixelvault-favorites", JSON.stringify(newFavorites))
+    setItem("favorites", newFavorites)
 
     toast.success( "Image removed from your favorites.")
   }
@@ -96,7 +99,7 @@ export default function FavoritesPage() {
   const clearAllFavorites = () => {
     setFavorites([])
     setFavoriteImages([])
-    localStorage.removeItem("pixelvault-favorites")
+    removeItem("favorites")
 
     toast.success("All favorite images have been removed.")
     setConfirmDialogOpen(false)
