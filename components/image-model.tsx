@@ -83,9 +83,7 @@ const handleDownloadWithConfetti = (img: UnsplashImage) => {
       )}
 
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent cl
-      
-      assName="w-full max-w-3xl lg:max-w-7xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="w-full max-w-3xl lg:max-w-7xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex gap-3 items-center">
             <Info className="h-5 w-5" />
