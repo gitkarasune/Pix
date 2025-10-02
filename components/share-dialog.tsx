@@ -102,7 +102,7 @@ const socialPlatforms = [
 ]
 
 export default function ShareDrawer({ isOpen, onClose, url }: ShareDrawerProps) {
-  const handleCopyUrl = async () => {
+  const handleCopyUrl = async () => { 
     try {
       await navigator.clipboard.writeText(url)
       toast.success("Image URL copied to clipboard!")
@@ -115,9 +115,9 @@ export default function ShareDrawer({ isOpen, onClose, url }: ShareDrawerProps) 
     <Drawer open={isOpen} onOpenChange={onClose}>
       <DrawerContent className="relative rounded-t-2xl sm:rounded-2xl max-w-2xl mx-auto w-full p-6 shadow-2xl overflow-hidden">
         {/* Gradient Backgrounds */}
-        <div className="absolute pointer-events-none -z-0 top-20 left-20 w-72 h-72 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 dark:from-cyan-500/20 dark:to-blue-500/20 rounded-full blur-3xl" />
+        {/* <div className="absolute pointer-events-none -z-0 top-20 left-20 w-72 h-72 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 dark:from-cyan-500/20 dark:to-blue-500/20 rounded-full blur-3xl" />
         <div className="absolute pointer-events-none -z-0 bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-purple-500/10 to-pink-500/10 dark:from-purple-500/20 dark:to-pink-500/20 rounded-full blur-3xl" />
-        <div className="absolute pointer-events-none -z-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-indigo-500/5 to-cyan-500/5 dark:from-indigo-500/10 dark:to-cyan-500/10 rounded-full blur-3xl" />
+        <div className="absolute pointer-events-none -z-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-indigo-500/5 to-cyan-500/5 dark:from-indigo-500/10 dark:to-cyan-500/10 rounded-full blur-3xl" /> */}
 
         <DrawerHeader>
           <DrawerTitle className="flex items-center gap-2">
