@@ -15,6 +15,7 @@ import ShareDialog from "@/components/share-dialog"
 import { Share2 } from "lucide-react"
 import { toast } from "sonner"
 import SmartSearch from "@/components/smart-search"
+import Confetti from "react-confetti"
 
 interface ImageModalProps {
   image: UnsplashImage | null
@@ -34,6 +35,7 @@ export default function ImageModal({
   const [aiAnalysis, setAiAnalysis] = useState<AIImageAnalysis | null>(null)
   const [analysisLoading, setAnalysisLoading] = useState(false)
   const [shareOpen, setShareOpen] = useState(false)
+  const [showConfetti, setShowConfetti] = useState(false)
 
   // Reset analysis
   useEffect(() => {
@@ -62,13 +64,28 @@ export default function ImageModal({
     }
   }
 
+const handleDownloadWithConfetti = (img: UnsplashImage) => {
+    onDownload(img)
+    setShowConfetti(true)
+    setTimeout(() => setShowConfetti(false), 6000) // stop after 6s
+  }
+
   if (!image) return null
 
   return (
     <>
 
+    {/* Confetti overlay */}
+      {showConfetti && (
+        <div className="fixed inset-0 pointer-events-none z-[9999]">
+          <Confetti width={window.innerWidth} height={window.innerHeight} recycle={false} numberOfPieces={500} />
+        </div>
+      )}
+
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="w-full max-w-3xl lg:max-w-7xl max-h-[90vh] overflow-y-auto">
+      <DialogContent cl
+      
+      assName="w-full max-w-3xl lg:max-w-7xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex gap-3 items-center">
             <Info className="h-5 w-5" />
@@ -92,7 +109,10 @@ export default function ImageModal({
 
             {/* Action Buttons */}
             <div className="flex gap-2">
-              <Button onClick={() => onDownload(image)} className="flex-1">
+              <Button onClick={() => {
+                onDownload(image) 
+                handleDownloadWithConfetti(image)}
+                } className="flex-1">
                 <Download className="h-4 w-4 mr-2" />
                 Download
               </Button>

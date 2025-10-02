@@ -223,7 +223,7 @@ export default function SearchBar({ onSearch, onCategorySelect, loading = false,
               type="submit"
               size="sm"
               disabled={loading || !query.trim()}
-              className={`bg-[#000] text-[#fff] dark:bg-[#fff] dark:text-[#000] py-6 px-3 accent-sidebar-border border-[#000] dark:border-[#fff] rounded-2xl`}
+              className={`bg-[#000] text-[#fff] dark:bg-[#fff] dark:text-[#000] w-12 h-12 accent-sidebar-border border-[#000] dark:border-[#fff] rounded-xl`}
             >
               {loading ? (
                 <div className="h-4 w-4 animate-spin rounded-full border-2 dark:border-black border-white border-t-transparent" />
