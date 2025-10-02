@@ -191,7 +191,7 @@ export default function DashboardPage() {
 
         {/* Main Content Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full ">
-          <TabsList className="grid w-full grid-cols-3 mb-8">
+          <TabsList className="grid w-full max-w-5xl mx-auto grid-cols-3 mb-8">
             <TabsTrigger value="gallery" className="flex items-center gap-2">
               <Grid className="h-4 w-4" />
               Gallery

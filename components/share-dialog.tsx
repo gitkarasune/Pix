@@ -45,7 +45,7 @@ export default function ShareDialog({ isOpen, onClose, url }: ShareDialogProps) 
     //               </Button>
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog className="z-50" open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-lg relative overflow-hidden">
         {/* Absolute background blobs */}
         <div className="absolute pointer-events-none -z-0 top-20 left-20 w-72 h-72 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 dark:from-cyan-500/20 dark:to-blue-500/20 rounded-full blur-3xl" />

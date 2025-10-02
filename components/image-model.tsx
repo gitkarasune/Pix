@@ -65,12 +65,14 @@ export default function ImageModal({
   if (!image) return null
 
   return (
+    <>
+
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="w-full max-w-3xl lg:max-w-7xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="flex justify-between items-center">
-            Image Details
+          <DialogTitle className="flex gap-3 items-center">
             <Info className="h-5 w-5" />
+            Image Details
           </DialogTitle>
         </DialogHeader>
 
@@ -107,7 +109,6 @@ export default function ImageModal({
               </Button>
             </div>
 
-            <ShareDialog isOpen={shareOpen} onClose={() => setShareOpen(false)} url={image.urls.full} />
 
             <div>
               <h4 className="text-sm font-medium mb-2">Find similar images</h4>
@@ -261,5 +262,8 @@ export default function ImageModal({
         </div>
       </DialogContent>
     </Dialog>
+
+    <ShareDialog isOpen={shareOpen} onClose={() => setShareOpen(false)} url={image.urls.full} />
+    </>
   )
 }

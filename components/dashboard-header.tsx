@@ -16,7 +16,7 @@ import {
 export default function DashboardHeader() {
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/80 backdrop-blur-md border-dashed dark:bg-zinc-950/50 lg:dark:bg-transparent"> 
-      <div className="container flex h-16 items-center justify-between px-4">
+      <div className="container flex h-16 items-center justify-between px-4 mx-auto">
         <div className="flex items-center ">
           <Link href="/dashboard" className="flex items-center">
             <Logo />
@@ -38,7 +38,7 @@ export default function DashboardHeader() {
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="sm" className="flex items-center gap-2">
                 <Menu className="h-4 w-4" />
-                Menu
+          
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start" className="w-40">
