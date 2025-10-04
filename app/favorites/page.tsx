@@ -6,6 +6,7 @@ import ImageGrid from "@/components/image-grid"
 import type { UnsplashImage } from "@/lib/types"
 import { unsplashAPI } from "@/lib/unsplash"
 import { Button } from "@/components/ui/button"
+import { Separator } from "@/components/ui/separator"
 import { Heart, Trash2 } from "lucide-react"
 import { toast } from "sonner"
 import {
@@ -113,7 +114,7 @@ export default function FavoritesPage() {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold mb-2 flex items-center gap-3">
-              <Heart className="h-8 w-8 text-red-500" />
+              <Heart className="h-7 w-7 text-red-500" />
               Your Favorites
             </h1>
             <p className="text-muted-foreground">
@@ -136,13 +137,14 @@ export default function FavoritesPage() {
 
               {/* Confirmation Dialog */}
               <Dialog open={confirmDialogOpen} onOpenChange={setConfirmDialogOpen}>
-                <DialogContent>
+                <DialogContent className="py-5">
                   <DialogHeader>
                     <DialogTitle>Clear All Favorites?</DialogTitle>
                     <DialogDescription>
                       This will remove all saved favorite images. This action cannot be undone.
                     </DialogDescription>
                   </DialogHeader>
+                  <Separator className="my-4" />
                   <DialogFooter className="flex justify-end gap-2">
                     <Button variant="outline" onClick={() => setConfirmDialogOpen(false)}>
                       Cancel
