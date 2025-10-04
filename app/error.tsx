@@ -3,7 +3,6 @@
 import { useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import Logo from "@/components/logo"
 import { AlertTriangle, RefreshCw, Home } from "lucide-react"
 import Link from "next/link"
 
@@ -23,7 +22,6 @@ export default function Error({
       <Card className="w-full max-w-md">
         <CardContent className="pt-6">
           <div className="text-center space-y-6">
-            <Logo />
 
             <div className="space-y-2">
               <div className="flex items-center justify-center">

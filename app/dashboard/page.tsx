@@ -213,19 +213,25 @@ export default function DashboardPage() {
           <TabsContent value="gallery" className="space-y-6">
             {/* Action Bar */}
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <h2 className="text-xl font-semibold">
+              <div className="flex items-center">
+                <h2 className="text-sm font-semibold">
                   {currentQuery ? `Results for "${currentQuery}"` : "Discover Images"}
                 </h2>
-                {currentQuery && (
+                {/* {currentQuery && (
                   <Button variant="outline" size="sm" onClick={loadRandomImages} disabled={loading}>
-                    <RefreshCw className="h-4 w-4 mr-2" />
+                    <RefreshCw className="h-4 w-4 mr-1" />
                     Show Random
                   </Button>
-                )}
+                )} */}
               </div>
 
               <div className="text-sm text-muted-foreground">{images.length} images</div>
+               {currentQuery && (
+                  <Button variant="outline" size="sm" onClick={loadRandomImages} disabled={loading}>
+                    <RefreshCw className="h-4 w-4 mr-1" />
+                    Show Random
+                  </Button>
+                )}
             </div>
 
             {/* Image Grid */}

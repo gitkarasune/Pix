@@ -127,7 +127,6 @@ const handleDownloadWithConfetti = (img: UnsplashImage) => {
               </Button>
             </div>
 
-
             <div>
               <h4 className="text-sm font-medium mb-2">Find similar images</h4>
               <SmartSearch

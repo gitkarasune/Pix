@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Image from "next/image"
-import { Download, Heart, ExternalLink } from "lucide-react"
+import { Download, Heart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -125,7 +125,7 @@ export default function ImageGrid({
                       />
                       <span className="text-sm font-medium">{image.user.name}</span>
                     </div>
-                    <Button
+                    {/* <Button
                       size="sm"
                       variant="ghost"
                       className="h-6 w-6 p-0 text-white hover:bg-white/20"
@@ -135,7 +135,7 @@ export default function ImageGrid({
                       }}
                     >
                       <ExternalLink className="h-3 w-3" />
-                    </Button>
+                    </Button> */}
                   </div>
                 </div>
               </div>
