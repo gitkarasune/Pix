@@ -52,8 +52,8 @@ export default function ProfilePage() {
     <div className="min-h-screen bg-background">
       <DashboardHeader />
 
-      <main className="container mx-auto px-1 py-8">
-        <div className="max-w-7xl mx-auto space-y-10">
+      <main className="container mx-auto px-2 py-8">
+        <div className="max-w-full mx-auto space-y-10">
           {/* Profile Header */}
           <ProfileHeader />
 
