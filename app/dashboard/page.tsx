@@ -217,14 +217,10 @@ export default function DashboardPage() {
                 <h2 className="text-sm font-semibold">
                   {currentQuery ? `Results for "${currentQuery}"` : "Discover Images"}
                 </h2>
-                {/* {currentQuery && (
-                  <Button variant="outline" size="sm" onClick={loadRandomImages} disabled={loading}>
-                    <RefreshCw className="h-4 w-4 mr-1" />
-                    Show Random
-                  </Button>
-                )} */}
+                
               </div>
 
+              <div className="flex flex-col ga-1">
               <div className="text-sm text-muted-foreground">{images.length} images</div>
                {currentQuery && (
                   <Button variant="outline" size="sm" onClick={loadRandomImages} disabled={loading}>
@@ -232,6 +228,7 @@ export default function DashboardPage() {
                     Show Random
                   </Button>
                 )}
+                </div>
             </div>
 
             {/* Image Grid */}

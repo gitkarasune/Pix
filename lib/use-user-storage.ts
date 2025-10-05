@@ -21,16 +21,24 @@ export function useUserStorage() {
   const getItem = useCallback(
     (key: string): string | null => {
       if (typeof window === "undefined") return null
-      return localStorage.getItem(getKey(key))
+      try {
+        return localStorage.getItem(getKey(key))
+      } catch {
+        return null
+      }
     },
     [getKey]
   )
 
   // save value
   const setItem = useCallback(
-    (key: string, value: any) => {
+    (key: string, value: unknown) => {
       if (typeof window === "undefined") return
-      localStorage.setItem(getKey(key), JSON.stringify(value))
+      try {
+        localStorage.setItem(getKey(key), JSON.stringify(value))
+      } catch (err) {
+        console.error("Error saving to loalstorage:", err)
+      }
     },
     [getKey]
   )
@@ -39,7 +47,13 @@ export function useUserStorage() {
   const removeItem = useCallback(
     (key: string) => {
       if (typeof window === "undefined") return
-      localStorage.removeItem(getKey(key))
+      // Don't allow profile data to be removed
+      if (["profile"].includes(key)) return
+      try {
+        localStorage.removeItem(getKey(key))
+      } catch (err) {
+        console.error("Error removing from localstorage:", err)
+      }
     },
     [getKey]
   )

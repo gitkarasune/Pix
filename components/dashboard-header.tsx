@@ -16,7 +16,7 @@ import {
 export default function DashboardHeader() {
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/80 backdrop-blur-md border-dashed dark:bg-zinc-950/50 lg:dark:bg-transparent"> 
-      <div className="container flex h-16 items-center justify-between px-4 mx-auto">
+      <div className="container flex h-20 items-center justify-between px-4 mx-auto">
         <div className="flex items-center ">
           <Link href="/dashboard" className="flex items-center">
             <Logo />
@@ -29,40 +29,39 @@ export default function DashboardHeader() {
           <UserButton
             appearance={{
               elements: {
-                avatarBox: "h-8 w-8",
+                avatarBox: "h-12 w-12",
               },
             }}
           />
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="flex items-center gap-2">
-                <Menu className="h-4 w-4" />
+              <Button variant="ghost" size="lg" className="flex items-center gap-2">
+                <Menu className="h-8 w-8" />
           
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="w-40">
+            <DropdownMenuContent align="start" className="w-82 h-40">
               <DropdownMenuItem asChild>
-                <Link href="/dashboard" className="flex items-center gap-2">
-                  <Home className="h-4 w-4" />
+                <Link href="/dashboard" className="flex items-center gap-4 text-xl">
+                  <Home className="h-8 w-8" />
                   Gallery
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/favorites" className="flex items-center gap-2">
-                  <Heart className="h-4 w-4" />
+                <Link href="/favorites" className="flex items-center gap-4 text-xl">
+                  <Heart className="h-8 w-8" />
                   Favorites
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/profile" className="flex items-center gap-2">
-                  <User className="h-4 w-4" />
+                <Link href="/profile" className="flex items-center gap-4 text-xl">
+                  <User className="h-8 w-8" />
                   Profile
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-
         </div>
       </div>
     </header>
