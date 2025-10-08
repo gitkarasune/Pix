@@ -119,7 +119,7 @@ export function ContributionChart() {
 
           <Select value={timeRange} onValueChange={setTimeRange}>
             <SelectTrigger className="w-[140px]">
-              <SelectValue placeholder="Last 30 days" />
+              <SelectValue placeholder="Last 7 days" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="7days">Last 7 days</SelectItem>

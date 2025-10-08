@@ -113,8 +113,8 @@ export default function ShareDrawer({ isOpen, onClose, url }: ShareDrawerProps) 
   }
 
   return (
-    <Drawer open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DrawerContent style={{ zIndex: 9999 }} className="relative rounded-t-2xl sm:rounded-2xl max-w-3xl mx-auto w-full p-6 shadow-2xl overflow-hidden z-50">
+    <Drawer open={isOpen} onOpenChange={onClose}>
+      <DrawerContent style={{ zIndex: 9999 }} className="rounded-t-2xl sm:rounded-2xl max-w-3xl mx-auto w-full p-6 shadow-2xl z-40">
 
         <DrawerHeader>
           <DrawerTitle className="flex items-center gap-2">
@@ -148,7 +148,7 @@ export default function ShareDrawer({ isOpen, onClose, url }: ShareDrawerProps) 
                   window.open(shareUrl, "_blank")
                 }}
               >
-                <Icon className="h-6 w-6" />
+                <Icon className="h-20 w-20 text-3xl" />
                 <span className="text-xs">{platform.name}</span>
               </Button>
             )

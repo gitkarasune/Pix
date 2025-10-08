@@ -1,6 +1,7 @@
 export const NEXT_PUBLIC_UNSPLASH_ACCESS_KEY = process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY
 export const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY
 export const CLERK_SECRET_KEY = process.env.CLERK_SECRET_KEY
+export const GOOGLE_AI_API_KEY = process.env.GOOGLE_AI_API_KEY
 
 export const API_ENDPOINTS = {
   UNSPLASH_SEARCH: "https://api.unsplash.com/search/photos",
@@ -13,6 +14,10 @@ export const DEFAULT_SEARCH_PARAMS = {
   per_page: 30,
   order_by: "relevant" as const,
 }
+// export const DEFAULT_SEARCH_PARAMS = {
+//   per_page: 30,
+//   order_by: "relevant",
+// } as const 
 
 export const IMAGE_CATEGORIES = [
   "nature",

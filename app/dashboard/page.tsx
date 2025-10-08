@@ -15,7 +15,7 @@ import type { UnsplashImage } from "@/lib/types"
 import { unsplashAPI } from "@/lib/unsplash"
 import { deepSeekAPI } from "@/lib/deepseek"
 import { Button } from "@/components/ui/button"
-import { RefreshCw, Grid, TrendingUp, Folder } from "lucide-react"
+import { Grid, TrendingUp, Folder } from "lucide-react"
 import { toast } from "sonner"
 import { useUserStorage } from "@/lib/use-user-storage"
 
@@ -220,11 +220,14 @@ export default function DashboardPage() {
                 
               </div>
 
-              <div className="flex flex-col ga-1">
-              <div className="text-sm text-muted-foreground">{images.length} images</div>
+              <div className="flex flex-col ga-2">
+              {/* <div className="text-sm text-muted-foreground">{images.length} images</div> */}
+              <Button className="text-sm mb-1" size="sm">
+                    {images.length} images
+                  </Button>
+
                {currentQuery && (
                   <Button variant="outline" size="sm" onClick={loadRandomImages} disabled={loading}>
-                    <RefreshCw className="h-4 w-4 mr-1" />
                     Show Random
                   </Button>
                 )}

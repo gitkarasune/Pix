@@ -41,21 +41,21 @@ export default function DashboardHeader() {
           
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="w-82 h-40">
+            <DropdownMenuContent align="start" className="w-82 h-28">
               <DropdownMenuItem asChild>
-                <Link href="/dashboard" className="flex items-center gap-4 text-xl">
+                <Link href="/dashboard" className="flex items-center gap-4 text-lg">
                   <Home className="h-8 w-8" />
                   Gallery
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/favorites" className="flex items-center gap-4 text-xl">
+                <Link href="/favorites" className="flex items-center gap-4 text-lg">
                   <Heart className="h-8 w-8" />
                   Favorites
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/profile" className="flex items-center gap-4 text-xl">
+                <Link href="/profile" className="flex items-center gap-4 text-lg">
                   <User className="h-8 w-8" />
                   Profile
                 </Link>

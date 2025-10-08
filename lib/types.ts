@@ -79,3 +79,56 @@ export interface AIImageAnalysis {
   colors: string[]
   suggestions: string[]
 }
+export interface ColorPalette {
+  id: string
+  imageId: string
+  dominantColors: string[]
+  complementaryColors: string[]
+  analogousColors: string[]
+  triadicColors: string[]
+  accessibility: {
+    wcagAA: boolean
+    wcagAAA: boolean
+    contrastRatio: number
+  }
+  cssVariables: string
+  tailwindConfig: string
+  createdAt: Date
+}
+
+export interface ImageCollection {
+  id: string
+  userId: string
+  name: string
+  description?: string
+  images: UnsplashImage[]
+  tags: string[]
+  mood: string
+  createdAt: Date
+  updatedAt: Date
+  isPublic: boolean
+  shareUrl?: string
+}
+
+export interface MoodBoard {
+  id: string
+  collectionId: string
+  layout: "grid" | "masonry" | "collage" | "magazine"
+  title: string
+  subtitle?: string
+  images: UnsplashImage[]
+  createdAt: Date
+}
+
+export interface ChatMessage {
+  id: string
+  role: "user" | "assistant"
+  content: string
+  images?: UnsplashImage[]
+  timestamp: Date
+}
+
+export interface ImageChatSession {
+  imageId: string
+  messages: ChatMessage[]
+}
