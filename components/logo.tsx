@@ -11,7 +11,7 @@ export default function Logo() {
         alt="Pix Logo"
         width={24}
         height={24}
-        className="mr-1 dark:invert-0 invert transition-all duration-300"
+        className="mr-[3px] dark:invert-0 invert transition-all duration-300"
         priority
       />
 
