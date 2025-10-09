@@ -18,8 +18,8 @@ const tiers = [
     id: 'Pro',
     href: '#',
     price: { monthly: '$5', annually: '$60' },
-    description: 'Support your child with their homework',
-    features: ['200 credits', 'Ask me anything', 'Covers 9000 conversations'],
+    description: 'Explore more images and get beta response',
+    features: ['50 credits', 'Ask me anything', 'Covers 900 conversations'],
     mostPopular: false
   }
 ]
@@ -35,7 +35,7 @@ export default function SubscriptionDialog(
   return (
     <Drawer {...props}>
       <DrawerContent onClick={() => onOpenChange?.(false)}>
-        <div className='mx-auto w-full max-w-md'>
+        <div className='mx-auto w-full max-w-md'> 
           <DrawerHeader></DrawerHeader>
           <div className='isolate grid grid-cols-1 gap-8 px-3'>
             {tiers.map(tier => (
@@ -81,7 +81,7 @@ export default function SubscriptionDialog(
                     tier.mostPopular
                       ? 'bg-emerald-600 text-white shadow-sm hover:bg-emerald-500'
                       : 'text-emerald-600 ring-1 ring-inset ring-emerald-200 hover:ring-emerald-300',
-                    'mt-6 block w-full rounded-md px-3 py-2 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-emerald-600 cursor-not-allowed'
+                    'mt-6 block w-full rounded-md px-3 py-2 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-emerald-600 cursor-not-allowed opacity-0'
                   )}
                 >
                   Get started today

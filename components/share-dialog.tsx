@@ -114,7 +114,7 @@ export default function ShareDrawer({ isOpen, onClose, url }: ShareDrawerProps) 
 
   return (
     <Drawer open={isOpen} onOpenChange={onClose}>
-      <DrawerContent style={{ zIndex: 9999 }} className="rounded-t-2xl sm:rounded-2xl max-w-3xl mx-auto w-full p-6 shadow-2xl z-40">
+      <DrawerContent style={{ zIndex: 9999 }} className="rounded-t-sm max-w-md mx-auto w-full p-4 z-40">
 
         <DrawerHeader>
           <DrawerTitle className="flex items-center gap-2">
