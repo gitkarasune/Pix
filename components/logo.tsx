@@ -9,9 +9,9 @@ export default function Logo() {
       <Image
         src="/pix-logo.png"
         alt="Pix Logo"
-        width={24}
-        height={24}
-        className="mr-[3px] dark:invert-0 invert transition-all duration-300"
+        width={25}
+        height={25}
+        className="mr-[2px] dark:invert-0 invert transition-all duration-300"
         priority
       />
 
