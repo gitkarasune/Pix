@@ -409,7 +409,7 @@ export default function SearchBar({
             >
               {loading ? (
                 <div className="h-4 w-4 animate-spin rounded-full border-2 dark:border-black border-white border-t-transparent" />
-              ) : (
+              ) : (  
                 <ArrowRight />
               )}
             </Button>
