@@ -4,7 +4,7 @@ import { ReactNode } from 'react'
 
 export default function Features() {
   return (
-    <section id="features" className="bg-muted/30 py-10 md:py-20">
+    <section id="features" className="bg-muted/30 py-8 md:py-16">
       <div className="@container mx-auto max-w-6xl px-6">
         <div className="text-center mb-16">
           {/* <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-purple-600/20 blur-3xl dark:blur-3xl pointer-events-none -z-0" /> */}
@@ -117,6 +117,6 @@ const CardDecorator = ({ children }: { children: ReactNode }) => (
             className="absolute inset-0 bg-[linear-gradient(to_right,var(--color-border)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-border)_1px,transparent_1px)] bg-[size:24px_24px] dark:opacity-50"
         />
 
-        <div className="bg-background absolute inset-0 m-auto flex size-12 items-center justify-center border-l border-t">{children}</div>
+        <div className="bg-background absolute inset-0 m-auto flex size-32 items-center justify-center border-l border-t">{children}</div>
     </div>
 )
