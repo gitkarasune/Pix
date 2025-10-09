@@ -15,7 +15,7 @@ export default function Logo() {
         priority
       />
 
-      <span className="text-xl font-bold">
+      <span className="text-2xl font-bold">
         Pix
       </span>
     </div>
