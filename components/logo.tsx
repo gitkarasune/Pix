@@ -15,7 +15,7 @@ export default function Logo() {
         alt="Pix Logo"
         width={24}
         height={24}
-        className="ml-2 dark:invert"
+        className="ml-2 text-black dark:text-white"
         priority
       />
 
