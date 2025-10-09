@@ -9,7 +9,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/effect-coverflow'
 import Link from 'next/link'
-import { ArrowRight, Menu, Sparkles, X, Camera, Download, Zap } from 'lucide-react'
+import { ArrowRight, Menu, Sparkles, X, Camera } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ThemeToggle } from '../theme-toggle'
 import Logo from '../logo'
@@ -153,30 +153,21 @@ export default function HeroSection() {
                   className='rounded-2xl overflow-hidden shadow-2xl'>
                   <SwiperSlide className="px-2">
                     <div className="bg-background rounded-(--radius) h-80 max-w-lg border p-9 flex flex-col justify-center items-center text-center">
-                      <div className="mx-auto h-fit w-full rounded-full">
-                        <Camera className="size-14 dark:text-white text-dark" />
-                      </div>
-                      <h3 className="text-2xl text-black dark:text-muted-foreground max-w-md font-bold mb-4">Millions of Free Images</h3>
+                      <h3 className="text-2xl text-black dark:text-white  max-w-md font-bold mb-4">Millions of Free Images</h3>
                       <p className="mt-6 text-center text-lg font-medium">Access a vast collection of high-quality, royalty-free images from talented photographers
                         worldwide.</p>
                     </div>
                   </SwiperSlide>
                   <SwiperSlide className="px-2">
                     <div className="bg-background rounded-(--radius) h-80 max-w-lg border flex flex-col justify-center items-center text-center p-9">
-                      <div className="mx-auto h-fit w-full rounded-full">
-                        <Zap className="size-14 dark:text-white text-dark" />
-                      </div>
-                      <h3 className="text-2xl text-black dark:text-muted-foreground max-w-md font-bold mb-4">AI-Powered Search</h3>
+                      <h3 className="text-2xl text-black dark:text-white  max-w-md font-bold mb-4">AI-Powered Search</h3>
                       <p className="mt-6 text-center text-lg font-medium">Let our AI help you discover the perfect images with intelligent suggestions and smart
                         categorization.</p>
                     </div>
                   </SwiperSlide>
                   <SwiperSlide className="px-2">
                     <div className="bg-background rounded-(--radius) h-80 max-w-lg border flex flex-col justify-center items-center text-center p-9">
-                      <div className="mx-auto h-fit w-full rounded-full">
-                        <Download className="size-14 dark:text-white text-black" />
-                      </div>
-                      <h3 className="text-2xl text-black dark:text-muted-foreground max-w-md font-bold mb-4">Instant Downloads</h3>
+                      <h3 className="text-2xl text-black dark:text-white max-w-md font-bold mb-4">Instant Downloads</h3>
                       <p className="mt-6 text-center text-lg font-medium">Download images in multiple resolutions instantly. Build your personal gallery and organize
                         favorites.</p>
                     </div>
