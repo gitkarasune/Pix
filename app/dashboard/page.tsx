@@ -171,11 +171,11 @@ export default function DashboardPage() {
 
       <main className="container mx-auto px-4 py-8 relative overflow-x-hidden max-w-full">
         {/* Welcome Section */}
-        <div className="text-center mb-8 relative">
+        <div className="text-center mb-8">
 
-          <div className="absolute pointer-events-none -z-0 top-20 left-20 w-72 h-72 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 dark:from-cyan-500/20 dark:to-blue-500/20 rounded-full blur-3xl" />
+          {/* <div className="absolute pointer-events-none -z-0 top-20 left-20 w-72 h-72 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 dark:from-cyan-500/20 dark:to-blue-500/20 rounded-full blur-3xl" />
           <div className="absolute pointer-events-none -z-0 bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-purple-500/10 to-pink-500/10 dark:from-purple-500/20 dark:to-pink-500/20 rounded-full blur-3xl" />
-          <div className="absolute pointer-events-none -z-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-indigo-500/5 to-cyan-500/5 dark:from-indigo-500/10 dark:to-cyan-500/10 rounded-full blur-3xl" />
+          <div className="absolute pointer-events-none -z-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-indigo-500/5 to-cyan-500/5 dark:from-indigo-500/10 dark:to-cyan-500/10 rounded-full blur-3xl" /> */}
 
           {/* <h1 className="text-3xl font-bold mb-2">Welcome back, {user?.firstName || "Explorer"}!</h1> */}
           <h1 className="mb-2 mt-5 text-4xl font-bold md:text-6xl xl:text-7xl xl:[line-height:1.125]">

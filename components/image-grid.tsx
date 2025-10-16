@@ -8,7 +8,6 @@ import { Download, Heart, Palette } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
-import { Badge } from "@/components/ui/badge"
 import type { UnsplashImage } from "@/lib/types"
 import { cn } from "@/lib/utils"
 import Confetti from "react-confetti"
@@ -120,7 +119,7 @@ export default function ImageGrid({
                     <Button
                       size="sm"
                       variant="secondary"
-                      className="h-10 w-10 p-0 bg-white/90 hover:bg-white"
+                      className="h-10 w-20 p-0 bg-white/90 hover:bg-white"
                       onClick={(e) => {
                         e.stopPropagation()
                         // onDownload?.(image)
@@ -130,63 +129,7 @@ export default function ImageGrid({
                       <Download className="h-5 w-5 text-gray-600" />
                     </Button>
                   </div>
-
-                  {/* Info overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="flex items-center justify-between text-white">
-                      <div className="flex items-center gap-2">
-                        <Image
-                          src={image.user.profile_image.small || "/placeholder.png"}
-                          alt={image.user.name}
-                          width={24}
-                          height={24}
-                          className="rounded-full"
-                        />
-                        <span className="text-sm font-medium">{image.user.name}</span>
-                      </div>
-                      {/* <Button
-                      size="sm"
-                      variant="ghost"
-                      className="h-6 w-6 p-0 text-white hover:bg-white/20"
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        window.open(image.links.html, "_blank")
-                      }}
-                    >
-                      <ExternalLink className="h-3 w-3" />
-                    </Button> */}
-                    </div>
-                  </div>
                 </div>
-              </div>
-
-              {/* Image metadata */}
-              <div className="p-3 space-y-2">
-                <div className="flex items-center justify-between">
-                  <Badge variant="secondary" className="text-xs">
-                    {image.width} {"×"} {image.height}
-                  </Badge>
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                    <Heart className="h-3 w-3" />
-                    {image.likes}
-                  </div>
-                </div>
-
-                {(image.description || image.alt_description) && (
-                  <p className="text-xs text-muted-foreground line-clamp-2">
-                    {image.description || image.alt_description}
-                  </p>
-                )}
-
-                {image.tags && image.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-1">
-                    {image.tags.slice(0, 3).map((tag, index) => (
-                      <Badge key={index} variant="outline" className="text-xs px-1 py-0">
-                        {tag.title}
-                      </Badge>
-                    ))}
-                  </div>
-                )}
               </div>
             </Card>
           </div>
